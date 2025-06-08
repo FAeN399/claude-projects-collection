@@ -1,0 +1,261 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mythological Story Schema",
+  "description": "Schema for validating mythological story metadata in The Mythological Forge",
+  "type": "object",
+  "required": ["id", "title", "origin", "type", "themes", "summary", "date_added", "version", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique identifier for the story"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Primary title of the myth"
+    },
+    "alternate_titles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Alternative names or titles for the myth"
+    },
+    "origin": {
+      "type": "object",
+      "required": ["culture"],
+      "properties": {
+        "culture": {
+          "type": "string",
+          "enum": ["Greek", "Norse", "Egyptian", "Celtic", "Mesopotamian", "Hindu", "Buddhist", "Chinese", "Japanese", "Native American", "African", "Slavic", "Modern", "Unknown", "Other"]
+        },
+        "region": {
+          "type": "string",
+          "description": "Geographic region of origin"
+        },
+        "time_period": {
+          "type": "string",
+          "description": "Historical period"
+        },
+        "source_text": {
+          "type": "string",
+          "description": "Original source document or tradition"
+        }
+      }
+    },
+    "type": {
+      "type": "string",
+      "enum": ["creation", "hero-journey", "transformation", "wisdom", "apocalyptic", "trickster", "love", "war", "nature", "underworld", "other"],
+      "description": "Primary story type classification"
+    },
+    "themes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["consciousness", "death-rebirth", "transformation", "sacrifice", "power", "wisdom", "love", "betrayal", "justice", "chaos-order", "identity", "threshold", "shadow", "integration", "transcendence", "other"]
+      },
+      "minItems": 1,
+      "description": "Major themes present in the story"
+    },
+    "archetypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["hero", "mentor", "threshold-guardian", "shadow", "trickster", "shapeshifter", "herald", "ally", "mother", "father", "child", "wise-old-man", "wise-old-woman", "anima", "animus", "self", "other"]
+      },
+      "description": "Archetypal patterns present in the story"
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "role"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["protagonist", "antagonist", "mentor", "ally", "guardian", "herald", "trickster", "divine", "other"]
+          }
+        }
+      },
+      "description": "Characters appearing in the story"
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "from", "to"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["mentorship", "rivalry", "love", "family", "alliance", "enmity", "transformation", "creation", "destruction", "other"]
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Relationships between characters"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "description": "Searchable tags for categorization"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 500,
+      "description": "Brief summary of the myth"
+    },
+    "full_text": {
+      "type": "string",
+      "description": "Complete narrative text"
+    },
+    "symbolism": {
+      "type": "object",
+      "properties": {
+        "symbols": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "symbol": {"type": "string"},
+              "meaning": {"type": "string"}
+            }
+          }
+        },
+        "colors": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "numbers": {
+          "type": "array",
+          "items": {"type": "integer"}
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["earth", "water", "fire", "air", "void", "spirit", "metal", "wood"]
+          }
+        }
+      }
+    },
+    "date_added": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when story was added to the system"
+    },
+    "last_modified": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last modification"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Version number of the story entry"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "approved", "archived"],
+      "description": "Current status in the system"
+    },
+    "external_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "url": {"type": "string", "format": "uri"},
+          "type": {
+            "type": "string",
+            "enum": ["source", "analysis", "reference", "media", "other"]
+          }
+        }
+      }
+    },
+    "media": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filename": {"type": "string"},
+              "caption": {"type": "string"},
+              "source": {"type": "string"}
+            }
+          }
+        },
+        "audio": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filename": {"type": "string"},
+              "description": {"type": "string"},
+              "duration": {"type": "number"}
+            }
+          }
+        },
+        "diagrams": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filename": {"type": "string"},
+              "type": {"type": "string"},
+              "description": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "forge_metadata": {
+      "type": "object",
+      "description": "Specific metadata for The Mythological Forge project",
+      "properties": {
+        "transformation_potential": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Rating of transformative narrative potential"
+        },
+        "consciousness_themes": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "narrative_connections": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "IDs of related stories for narrative weaving"
+        },
+        "ai_prompts": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Prompts for AI-assisted story generation"
+        }
+      }
+    }
+  }
+}

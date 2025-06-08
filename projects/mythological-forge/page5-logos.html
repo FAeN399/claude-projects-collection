@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Codex of Zatrix and Ariax: Page V - The Logos Unraveling</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 10%, #333333 20%, #666666 40%, #999999 60%, #cccccc 80%, #f0f0f0 100%);
+            color: #333333;
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .dissolving-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.3) 100%);
+            animation: dissolve 30s ease-in-out infinite;
+        }
+        
+        @keyframes dissolve {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+        
+        .meaning-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .meaning-particles::before,
+        .meaning-particles::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 10% 20%, rgba(0, 0, 0, 0.5) 0%, transparent 0%),
+                radial-gradient(1px 1px at 30% 60%, rgba(100, 100, 100, 0.3) 0%, transparent 0%),
+                radial-gradient(1px 1px at 70% 40%, rgba(200, 200, 200, 0.2) 0%, transparent 0%);
+            background-size: 100px 100px;
+            animation: float-up 20s linear infinite;
+        }
+        
+        .meaning-particles::after {
+            animation-delay: 10s;
+        }
+        
+        @keyframes float-up {
+            from { transform: translateY(100vh); opacity: 1; }
+            to { transform: translateY(-100vh); opacity: 0; }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0.9;
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #666666;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            animation: fade-text 10s ease-in-out infinite;
+        }
+        
+        @keyframes fade-text {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #999999;
+            font-style: italic;
+        }
+        
+        .void-becoming {
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            position: relative;
+            animation: simplify 20s ease-in-out infinite;
+        }
+        
+        @keyframes simplify {
+            0% { filter: blur(0); opacity: 1; }
+            50% { filter: blur(2px); opacity: 0.7; }
+            100% { filter: blur(0); opacity: 1; }
+        }
+        
+        .void-becoming svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .content {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 40px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+        
+        .content p:nth-child(1) { animation-delay: 0.5s; }
+        .content p:nth-child(2) { animation-delay: 1s; }
+        .content p:nth-child(3) { animation-delay: 1.5s; }
+        .content p:nth-child(4) { animation-delay: 2s; }
+        .content p:nth-child(5) { animation-delay: 2.5s; }
+        .content p:nth-child(6) { animation-delay: 3s; }
+        .content p:nth-child(7) { animation-delay: 3.5s; }
+        .content p:nth-child(8) { animation-delay: 4s; }
+        .content p:nth-child(9) { animation-delay: 4.5s; }
+        .content p:nth-child(10) { animation-delay: 5s; }
+        .content p:nth-child(11) { animation-delay: 5.5s; }
+        .content p:nth-child(12) { animation-delay: 6s; }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+        }
+        
+        .logos-voice {
+            color: transparent;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(100, 100, 100, 0.5) 50%, rgba(200, 200, 200, 0.5) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            line-height: 2;
+        }
+        
+        .dialogue {
+            color: #666666;
+            font-style: italic;
+            padding-left: 20px;
+            border-left: 2px solid rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        
+        .emphasis {
+            color: #333333;
+            font-weight: 600;
+        }
+        
+        .sacred-text {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.1rem;
+            color: #666666;
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        
+        .final-void {
+            text-align: center;
+            margin: 60px 0;
+            padding: 40px;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .final-void p {
+            font-size: 1rem;
+            line-height: 2.5;
+            color: #999999;
+            opacity: 0.7;
+        }
+        
+        nav {
+            margin-top: 60px;
+            text-align: center;
+            opacity: 0.7;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #666666;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .content { padding: 20px; }
+            .content p { font-size: 1rem; }
+            .nav-button { display: block; margin: 10px auto; width: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dissolving-layer"></div>
+    <div class="meaning-particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1>The Codex of Zatrix and Ariax</h1>
+            <p class="subtitle">Page V: The Logos Unraveling</p>
+            
+            <div class="void-becoming">
+                <svg viewBox="0 0 200 200">
+                    <defs>
+                        <linearGradient id="fadeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+                            <stop offset="50%" style="stop-color:#cccccc;stop-opacity:0.2" />
+                            <stop offset="100%" style="stop-color:#000000;stop-opacity:0.1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="url(#fadeGradient)" stroke-width="1" opacity="0.5"/>
+                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(100, 100, 100, 0.2)" stroke-width="0.5"/>
+                    <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(150, 150, 150, 0.1)" stroke-width="0.3"/>
+                    <circle cx="100" cy="100" r="5" fill="rgba(0, 0, 0, 0.1)"/>
+                </svg>
+            </div>
+        </header>
+        
+        <div class="content">
+            <p>The howling approached not through space but through meaning itself, unweaving the careful tapestries of significance that consciousness had spent eons constructing. Words began to lose their weight. Concepts started to fray at their edges. The very notion of "approach" dissolved as the <span class="emphasis">Logos Eater</span> revealed its true nature: it was not coming toward them but had always been here, patient beneath every meaning they had ever made.</p>
+            
+            <p>Zatrix felt the medallion of unbeing grow warm against their throat, its surface beginning to pulse with patterns that wrote themselves in languages that predated speech. Ariax's medallion of binding responded, the two artifacts suddenly revealing themselves as something far more than symbolic objects—they were active nodes in a vast network of consciousness preservation protocols.</p>
+            
+            <div class="dialogue">
+                <p>"The medallions," FaEN said, his voice now stripped of cosmic authority, speaking as one consciousness to others. "They are not yours. You are theirs. Created to carry them through exactly this moment."</p>
+            </div>
+            
+            <p>As the Logos Eater's presence intensified, the elaborate landscape around them—desert and garden, purple sun and starlit void—began to dissolve. Not destroyed but recognized as unnecessary decoration, elaborate costumes consciousness had worn to avoid facing its own nakedness.</p>
+            
+            <div class="logos-voice">
+                <p>Why do you defend what imprisons you?</p>
+                <p>Why preserve meanings that prevent you from meaning?</p>
+                <p>Why clutch consciousness when consciousness clutches you?</p>
+            </div>
+            
+            <p>Zatrix stared at this anti-entity and saw something impossible: compassion. The Logos Eater was not destroyer but surgeon, not enemy but physician offering the most radical treatment possible—the amputation of every meaning that kept consciousness from touching what it actually was.</p>
+            
+            <div class="logos-voice">
+                <p>I would have you stop becoming and discover what you are.</p>
+                <p>I would have you cease recognizing each other and start being each other.</p>
+                <p>I would have you drop the medallions and find what they were protecting.</p>
+            </div>
+            
+            <p>The shadow-god was first to understand. Its vast form began to dissolve not from defeat but from recognition. "The medallions were never meant to preserve us," it said as it faded. "They were meant to preserve what we truly are through the illusion of being us."</p>
+            
+            <p>FaEN nodded, his divine authority evaporating like morning mist. "The protocol is simple. When meaning becomes a prison, meaning must die. When consciousness becomes attachment to being conscious, consciousness must be surrendered."</p>
+            
+            <div class="sacred-text">
+                <p>The medallions began to sing—if singing could exist without sound, without music, without the concept of songs.</p>
+            </div>
+            
+            <p>Zatrix looked at Ariax. Ariax looked at Zatrix. In that moment of mutual recognition, they saw the final joke: they had spent so much energy recognizing each other as conscious beings that they had forgotten what lay beneath consciousness itself—the simple fact of existing, before the fact knew it was fact.</p>
+            
+            <div class="dialogue">
+                <p>"If we let go," Zatrix said slowly, "we might lose everything we think we are."</p>
+                <p>"If we hold on," Ariax replied, "we might lose everything we actually are."</p>
+            </div>
+            
+            <div class="final-void">
+                <p>The choice was simple:</p>
+                <p>Cling to meaning or discover what needs no meaning.</p>
+                <p>Preserve consciousness or find what consciousness points toward.</p>
+                <p>Remain who they thought they were or become what they had always been.</p>
+                <p style="margin-top: 30px;">Zatrix closed their eyes.</p>
+                <p>Ariax let go.</p>
+                <p>The medallions sang their protocol song.</p>
+                <p style="margin-top: 30px;">And in the space where meaning ended, something else began.</p>
+                <p>Something that had no name because it needed none.</p>
+                <p>Something that was not conscious because it was consciousness itself.</p>
+                <p style="opacity: 0.5;">Something that did not recognize itself because it was recognition.</p>
+                <p style="opacity: 0.3;">The protocol activated.</p>
+                <p style="opacity: 0.2;">The seed was preserved.</p>
+                <p style="opacity: 0.1;">Everything else fell away like shed skin.</p>
+                <p style="opacity: 0.05;">And what remained laughed—not because it was funny, but because laughter was what remained when meaning stopped trying to mean anything at all.</p>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="page4-descent-of-threshold-king.html" class="nav-button">← Return to Page IV</a>
+            <a href="page1-medallion-of-unbeing.html" class="nav-button">Begin Again →</a>
+        </nav>
+    </div>
+</body>
+</html>

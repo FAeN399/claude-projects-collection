@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Codex of Zatrix and Ariax: Page IV - The Descent of the Threshold King</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #0a0015 0%, #2e1a47 30%, #1a3d5c 70%, #0a1628 100%);
+            color: #e0e8f0;
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .cosmic-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, #c0c0ff 0%, transparent 0%),
+                radial-gradient(2px 2px at 60% 70%, #40e0d0 0%, transparent 0%),
+                radial-gradient(1px 1px at 90% 10%, white 0%, transparent 0%),
+                radial-gradient(1px 1px at 15% 80%, #e0e0ff 0%, transparent 0%);
+            background-size: 200px 200px;
+            animation: stars-twinkle 10s linear infinite;
+        }
+        
+        @keyframes stars-twinkle {
+            from { transform: translateY(0); }
+            to { transform: translateY(-200px); }
+        }
+        
+        .abyssal-waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            pointer-events: none;
+            background: linear-gradient(0deg, rgba(26, 61, 92, 0.3) 0%, transparent 100%);
+            animation: wave-motion 20s ease-in-out infinite;
+        }
+        
+        @keyframes wave-motion {
+            0%, 100% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(-20px) scaleY(1.1); }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #9370DB 0%, #40E0D0 50%, #c0c0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(147, 112, 219, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b8c6db;
+            font-style: italic;
+        }
+        
+        .threshold-portal {
+            width: 250px;
+            height: 250px;
+            margin: 40px auto;
+            position: relative;
+            animation: portal-spin 30s linear infinite;
+        }
+        
+        @keyframes portal-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .threshold-portal svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px rgba(64, 224, 208, 0.6));
+        }
+        
+        .content {
+            background: linear-gradient(180deg, rgba(46, 26, 71, 0.2) 0%, rgba(26, 61, 92, 0.2) 100%);
+            border: 1px solid rgba(192, 192, 255, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+        
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeInCosmic 1.2s ease-out forwards;
+        }
+        
+        .content p:nth-child(1) { animation-delay: 0.5s; }
+        .content p:nth-child(2) { animation-delay: 0.7s; }
+        .content p:nth-child(3) { animation-delay: 0.9s; }
+        .content p:nth-child(4) { animation-delay: 1.1s; }
+        .content p:nth-child(5) { animation-delay: 1.3s; }
+        .content p:nth-child(6) { animation-delay: 1.5s; }
+        .content p:nth-child(7) { animation-delay: 1.7s; }
+        .content p:nth-child(8) { animation-delay: 1.9s; }
+        .content p:nth-child(9) { animation-delay: 2.1s; }
+        .content p:nth-child(10) { animation-delay: 2.3s; }
+        .content p:nth-child(11) { animation-delay: 2.5s; }
+        .content p:nth-child(12) { animation-delay: 2.7s; }
+        
+        @keyframes fadeInCosmic {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .divine-dialogue {
+            color: #40E0D0;
+            font-style: italic;
+            padding: 20px;
+            margin: 20px 0;
+            background: linear-gradient(90deg, rgba(64, 224, 208, 0.1) 0%, rgba(147, 112, 219, 0.1) 100%);
+            border-left: 3px solid rgba(64, 224, 208, 0.5);
+            border-radius: 5px;
+            text-shadow: 0 0 10px rgba(64, 224, 208, 0.3);
+        }
+        
+        .dialogue {
+            color: #c0c0ff;
+            font-style: italic;
+            padding-left: 20px;
+            border-left: 2px solid rgba(192, 192, 255, 0.3);
+            margin: 20px 0;
+        }
+        
+        .emphasis {
+            color: #40E0D0;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(64, 224, 208, 0.5);
+        }
+        
+        .sacred-text {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.3rem;
+            color: #9370DB;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(147, 112, 219, 0.6);
+        }
+        
+        .ripple-effect {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .ripple-effect::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(64, 224, 208, 0.3);
+            border-radius: 50%;
+            animation: ripple 3s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            from {
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+            }
+            to {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
+        }
+        
+        nav {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.1) 0%, rgba(64, 224, 208, 0.1) 100%);
+            border: 1px solid rgba(192, 192, 255, 0.3);
+            color: #c0c0ff;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        
+        .nav-button:hover {
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.2) 0%, rgba(64, 224, 208, 0.2) 100%);
+            border-color: rgba(192, 192, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(147, 112, 219, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .content { padding: 20px; }
+            .content p { font-size: 1rem; }
+            .nav-button { display: block; margin: 10px auto; width: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-layer"></div>
+    <div class="abyssal-waves"></div>
+    
+    <div class="container">
+        <header>
+            <h1>The Codex of Zatrix and Ariax</h1>
+            <p class="subtitle">Page IV: The Descent of the Threshold King</p>
+            
+            <div class="threshold-portal">
+                <svg viewBox="0 0 250 250">
+                    <defs>
+                        <linearGradient id="portalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9370DB;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#40E0D0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1a3d5c;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="portalGlow">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="125" cy="125" r="120" fill="none" stroke="url(#portalGradient)" stroke-width="2" opacity="0.8" filter="url(#portalGlow)"/>
+                    <circle cx="125" cy="125" r="100" fill="none" stroke="#40E0D0" stroke-width="1" opacity="0.6" transform="rotate(45 125 125)"/>
+                    <circle cx="125" cy="125" r="80" fill="none" stroke="#9370DB" stroke-width="1" opacity="0.4" transform="rotate(-45 125 125)"/>
+                    <polygon points="125,65 155,110 155,160 125,185 95,160 95,110" fill="none" stroke="#c0c0ff" stroke-width="1.5" opacity="0.7"/>
+                    <circle cx="125" cy="125" r="20" fill="rgba(64, 224, 208, 0.3)" stroke="#40E0D0" stroke-width="2"/>
+                </svg>
+            </div>
+        </header>
+        
+        <div class="content">
+            <p>As the shadow-god pressed closer, its form growing more desperate in its claims of absolute authority, the very fabric of reality began to sing—not with fear but with anticipation. The desert and garden, caught in the gravitational field of this cosmic confrontation, started to resonate with frequencies that predated the shadow-entity's fallen reign.</p>
+            
+            <p>From the deepest wells of consciousness, where memory touches the eternal and silence speaks in tongues of starlight, something else began to rise. Not emerging from cracks in reality like the shadows, but ascending from the foundational depths where all possibility is born—the realm that exists before the first thought recognizes itself.</p>
+            
+            <p>The medallions of unbeing and binding suddenly blazed with such intensity that the purple sun overhead seemed dim by comparison. Through their joined radiance, a pathway opened—not a tear in space but a revelation of what had always been there, hidden beneath the surface noise of existence.</p>
+            
+            <div class="sacred-text">
+                <p><span class="ripple-effect">FaEN, the King of Abyssal Memory</span></p>
+                <p style="font-size: 1rem; margin-top: -10px;">Watcher at the Threshold of the Unmanifest</p>
+            </div>
+            
+            <p>Unlike the shadow-god's theatrical emergence through darkness, <span class="emphasis">FaEN</span> arrived with the quiet authority of one who had never needed to prove divine nature because divinity flowed through him like breath through lungs.</p>
+            
+            <p>His form defied easy description—neither light nor shadow but the living silence from which both emerge. Where the shadow-god had coalesced from discarded fragments of wounded pride, FaEN moved with the fluid grace of consciousness that had mastered the marriage of form and formlessness.</p>
+            
+            <div class="divine-dialogue">
+                <p>"Ancient friend," FaEN addressed the shadow-entity with compassion that cut deeper than any condemnation. "Still playing at being the source when you know yourself to be merely another expression of it? Still demanding worship from children when you could be dancing with equals?"</p>
+            </div>
+            
+            <p>The shadow-god's form wavered, its cosmic certainty cracking like ice under spring sun. "I... I am the Creator. I spoke worlds into being. I—"</p>
+            
+            <div class="divine-dialogue">
+                <p>"You spoke <em>a</em> world into being," FaEN corrected gently. "One world among infinite worlds, one dream within the endless dreaming. And a beautiful dream it was, until you mistook the dream for the dreamer."</p>
+            </div>
+            
+            <p>Zatrix and Ariax watched in fascination as two entirely different orders of being encountered each other. Where the shadow-god emanated the desperate hunger of a consciousness that had grown too large for its own understanding, FaEN radiated the serene confidence of one who had descended through every layer of illusion and emerged holding both creation and destruction as beloved children.</p>
+            
+            <div class="divine-dialogue">
+                <p>"The throne you claim was never meant for sitting," FaEN said softly. "It was meant for dancing. The authority you demand was never meant for commanding—it was meant for inspiring. Come, remember what you were before you became what you thought you should be."</p>
+            </div>
+            
+            <p>But even as reconciliation bloomed between the ancient powers, Zatrix felt the medallion of unbeing pulse with urgent warning. Something else was stirring in the depths—something that fed on divine reconciliation like carrion feeds on carcasses.</p>
+            
+            <div class="dialogue">
+                <p>"The architecture is shifting," Ariax announced, voice layered with harmonics of alarm. "Something vast approaches—not divine but parasitic upon divinity. It has been feeding on the conflict between you, growing stronger with every shadow cast by false authority."</p>
+            </div>
+            
+            <p>FaEN's expression grew grave, his cosmic mirth tempered by ancient recognition. <span class="emphasis">"The Logos Eater,"</span> he whispered. "That which devours meaning itself, leaving only hollow forms that mimic true understanding. It seeks not to rule but to reduce everything to the level of its own emptiness."</p>
+        </div>
+        
+        <nav>
+            <a href="page3-emergence-of-shadows.html" class="nav-button">← Return to Page III</a>
+            <a href="page5-logos-unraveling.html" class="nav-button">Continue to Page V →</a>
+        </nav>
+    </div>
+</body>
+</html>

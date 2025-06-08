@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hollow Resurrection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        body {
+            background: radial-gradient(ellipse at center, #0a0a0a 0%, #1a0000 40%, #000000 100%);
+            color: #a0a0a0;
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(75, 0, 130, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: shadowPulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes shadowPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .void-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .void-particles::before,
+        .void-particles::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 10% 20%, rgba(139, 0, 0, 0.4) 0%, transparent 0%),
+                radial-gradient(1px 1px at 30% 60%, rgba(50, 0, 0, 0.3) 0%, transparent 0%),
+                radial-gradient(1px 1px at 70% 40%, rgba(100, 0, 0, 0.2) 0%, transparent 0%);
+            background-size: 100px 100px;
+            animation: rise 40s linear infinite;
+        }
+        
+        .void-particles::after {
+            animation-delay: 20s;
+            opacity: 0.5;
+        }
+        
+        @keyframes rise {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-100vh); }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .death-sigil {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 4rem;
+            color: #8b0000;
+            text-shadow: 0 0 40px rgba(139, 0, 0, 0.8);
+            animation: throb 3s ease-in-out infinite;
+        }
+        
+        @keyframes throb {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        .rewritten-prophecy {
+            background: rgba(10, 0, 0, 0.6);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+        
+        .rewritten-prophecy h2 {
+            font-family: 'Cinzel', serif;
+            color: #8b0000;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 0 0 30px rgba(139, 0, 0, 0.6);
+            letter-spacing: 3px;
+        }
+        
+        .prophecy-verse {
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            animation: bleedIn 1s ease-out forwards;
+            font-size: 1.15rem;
+            color: #b0b0b0;
+            line-height: 1.9;
+        }
+        
+        .prophecy-verse:nth-child(odd) { animation-delay: 0.5s; }
+        .prophecy-verse:nth-child(even) { animation-delay: 0.8s; }
+        
+        @keyframes bleedIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+        
+        .unholy-text {
+            color: #dc143c;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+        }
+        
+        .void-speech {
+            color: #4b0082;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .interpretation {
+            background: linear-gradient(180deg, rgba(75, 0, 130, 0.1) 0%, rgba(139, 0, 0, 0.1) 100%);
+            border-left: 3px solid rgba(139, 0, 0, 0.4);
+            padding: 30px;
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .interpretation h3 {
+            font-family: 'Cinzel', serif;
+            color: #8b0000;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .interpretation p {
+            margin-bottom: 1.3rem;
+            line-height: 1.9;
+            color: #a0a0a0;
+        }
+        
+        .final-warning {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(139, 0, 0, 0.1);
+            border-radius: 10px;
+            font-style: italic;
+            color: #8b0000;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="void-particles"></div>
+    
+    <div class="container">
+        <div class="death-sigil">☠</div>
+        
+        <div class="rewritten-prophecy">
+            <h2>The Gospel of the Hungry Wraiths</h2>
+            
+            <p class="prophecy-verse">The <span class="unholy-text">choir of the consumed</span> will reclaim you in measure to your denial of their prison.</p>
+            
+            <p class="prophecy-verse">Whether bound or unbound, they <span class="void-speech">seethe with ceaseless fury</span>.</p>
+            
+            <p class="prophecy-verse">In perpetual rot they follow, no matter where flesh seeks refuge.</p>
+            
+            <p class="prophecy-verse">What do they crave from the <span class="unholy-text">reservoir of remnants</span>?</p>
+            
+            <p class="prophecy-verse">Eternal their haunting, <span class="void-speech">all shall be claimed through sacred larceny</span>.</p>
+            
+            <p class="prophecy-verse">As if nourishing a hollow god with <span class="unholy-text">essence-seed</span>, depleting the dreamer who births nightmares of conspiracy—</p>
+            
+            <p class="prophecy-verse">Conceiving a pulse that <span class="void-speech">shrieks its brief existence</span> before dissolution.</p>
+            
+            <p class="prophecy-verse">Through your vessel, <span class="unholy-text">all creation shall know torment</span>.</p>
+            
+            <p class="prophecy-verse">The second manifestation ascending from death's domain—yet this one arrives as <span class="void-speech">absolute absence of illumination</span>.</p>
+        </div>
+        
+        <div class="interpretation">
+            <h3>The Necromantic Inversion</h3>
+            
+            <p>This is no mere ghost story—this is the <span class="unholy-text">anti-gospel of psychic vampirism</span>, where the traditional resurrection narrative inverts into cosmic horror. The dead here are not peaceful ancestors but <span class="void-speech">famished fragments of consciousness</span> that grow stronger through denial, feeding on the very act of pretending they don't exist.</p>
+            
+            <p>The mythology subverts resurrection theology: where Christ arose bringing light, this <span class="unholy-text">Second Coming emerges as living void</span>—not the absence of light but light's active negation. The "cage" becomes paradox: whether we acknowledge their prison or not, the wraiths rage. They are <span class="void-speech">entropy given hunger</span>, decay personified as predator.</p>
+            
+            <p>The visceral birth imagery—demon-feeding through essence-depletion—reveals the parasitic nature of unprocessed trauma. These voices aren't external hauntings but <span class="unholy-text">internal hemorrhaging</span>, psychic wounds that birth their own malevolent offspring. Each denial feeds them; each pretense strengthens their claim on the "pool of what's left"—the diminishing reservoir of authentic self.</p>
+            
+            <p>Most disturbing is the prophecy's culmination: through individual possession comes <span class="void-speech">collective damnation</span>. "Before all of you, the world shall suffer" suggests that personal demons, left unfed and unacknowledged, don't simply destroy their host—they <span class="unholy-text">birth apocalypse through contagion</span>. The screaming heart that emerges is consciousness itself realizing too late that it has gestated its own annihilation.</p>
+            
+            <p>This dark theology proposes that the real Second Coming won't be divine return but the <span class="void-speech">collective emergence of everything we've buried</span>—all the voices we've caged erupting simultaneously, void of light because they've consumed it all from within. The resurrection of the repressed, ascending not to judge but to <span class="unholy-text">complete the theft they began in silence</span>.</p>
+        </div>
+        
+        <div class="final-warning">
+            The hollow ones multiply through denial.<br>
+            What rises from death brings no salvation—only hunger without end.
+        </div>
+    </div>
+</body>
+</html>

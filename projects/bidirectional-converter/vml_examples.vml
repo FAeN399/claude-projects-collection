@@ -1,0 +1,393 @@
+---
+title: VML (Versatile Markup Language) Examples
+author: Bidirectional Converter Project
+version: 1.0
+date: 2024-01-20
+tags: [documentation, examples, vml]
+---
+
+# VML Examples and Usage Guide
+
+This document demonstrates the full capabilities of !!VML!! - a versatile markup language that combines the best features of Markdown, AML, and custom markup systems.
+
+## Table of Contents
+
+- [[#basic-syntax]]
+- [[#advanced-features]]
+- [[#real-world-examples]]
+- [[#best-practices]]
+
+## Basic Syntax {#basic-syntax}
+
+### Text Formatting
+
+VML supports standard Markdown formatting with enhanced capabilities:
+
+- **Bold text** using double asterisks
+- *Italic text* using single asterisks
+- `inline code` using backticks
+- !!Emphasized text!! using double exclamation marks
+- <~Contextual information~> using angle-tilde markers
+- (*Side notes*) using parenthesis-asterisk markers
+- /!Warning messages!/ using slash-exclamation markers
+- /+Success messages+/ using slash-plus markers
+
+### Headers and Structure
+
+```vml
+# Level 1 Header
+## Level 2 Header
+### Level 3 Header
+#### Level 4 Header
+##### Level 5 Header
+###### Level 6 Header
+```
+
+### Lists
+
+Unordered lists:
+- First item
+- Second item
+  - Nested item
+  - Another nested item
+- Third item
+
+Ordered lists:
+1. First step
+2. Second step
+   a. Sub-step
+   b. Another sub-step
+3. Third step
+
+### Links and References
+
+- External link: [VML Documentation](https://example.com/vml-docs)
+- Internal reference: [[#advanced-features]]
+- Code reference: @[calculateSum]@
+- File include: @include "utils.vml"
+
+### Tables
+
+| Feature | Support | Notes |
+|---------|:-------:|-------|
+| Markdown | /+Full+/ | All standard features |
+| Variables | /+Full+/ | ${variable} syntax |
+| Templates | /+Full+/ | %{template} syntax |
+| Directives | /+Full+/ | @directive syntax |
+| Sections | /+Full+/ | :: section markers |
+
+## Advanced Features {#advanced-features}
+
+### Variables and Templates
+
+VML supports dynamic content through variables and templates:
+
+@directive[type=example, lang=vml]
+```
+Welcome ${user_name}! Today is ${current_date}.
+
+%{header_template}
+
+Your account status: ${account_status}
+Current project: ${project_name}
+
+%{footer_template}
+```
+
+### Sections with Parameters
+
+:: section[class=important, id=security-notice, style=bordered]
+## /!Security Notice!/
+
+This section demonstrates parameterized sections. Sections can have:
+- Custom CSS classes
+- Unique identifiers
+- Style attributes
+- <~Nested content with full VML support~>
+
+:: subsection[type=code-example]
+```python
+def secure_function(data):
+    """Example of ${function_type} function"""
+    return encrypt(data)
+```
+:: /subsection
+
+:: /section
+
+### Directives
+
+VML directives provide powerful control over document behavior:
+
+@if has_feature("advanced_mode") {
+  ### Advanced Mode Features
+  
+  These features are only available in advanced mode:
+  - Enhanced ${feature_1}
+  - Specialized %{component_2}
+  - Custom @[renderer]@
+}
+
+@for item in ["feature1", "feature2", "feature3"] {
+  - ${item}: [[See documentation for ${item}]]
+}
+
+@macro button(text, action) {
+  <button onclick="${action}">!!${text}!!</button>
+}
+
+@button("Click Me", "handleClick()")
+
+### Metadata Blocks
+
+---
+component: UserGuide
+status: published
+last_updated: 2024-01-20
+reviewers: ["alice", "bob", "charlie"]
+---
+
+### Custom Markup Combinations
+
+You can combine different markup types for rich expressiveness:
+
+:: section[type=tutorial, difficulty=intermediate]
+## (*Tutorial*): Building a /+REST API+/ with !!Best Practices!!
+
+In this tutorial, we'll create a ${framework} API with the following features:
+
+1. **Authentication**: Using @[JWT tokens]@
+2. **Data Validation**: With %{validation_schema}
+3. **Error Handling**: <~Proper error responses with status codes~>
+4. **Testing**: /!Don't forget to write tests!/
+
+@directive[type=code, lang=javascript, highlight="2,5-7"]
+```javascript
+const express = require('express');
+const app = express(); // !!Important initialization!!
+
+// ${middleware_setup}
+app.use(express.json());
+app.use(cors());
+app.use(authenticate);
+
+// %{route_definitions}
+```
+
+:: note[type=tip]
+(*Pro tip*): Always validate input data before processing!
+:: /note
+
+:: /section
+
+## Real-World Examples {#real-world-examples}
+
+### Example 1: API Documentation
+
+:: section[class=api-docs]
+# DataFlow API Reference
+
+@directive[version=2.0, status=stable]
+
+## Authentication
+
+All API requests require authentication using [[Bearer tokens]].
+
+### Obtaining a Token
+
+@endpoint[method=POST, path=/api/auth/login]
+```
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "username": "${username}",
+  "password": "${password}"
+}
+```
+
+/+Success Response+/:
+```json
+{
+  "token": "${jwt_token}",
+  "expires_in": 3600
+}
+```
+
+/!Error Response!/:
+```json
+{
+  "error": "Invalid credentials",
+  "code": "AUTH_001"
+}
+```
+
+:: /section
+
+### Example 2: Configuration File
+
+---
+application: MyApp
+environment: production
+---
+
+:: config[section=database]
+database:
+  host: ${DB_HOST}
+  port: ${DB_PORT}
+  name: ${DB_NAME}
+  <~Connection pool settings~>:
+    min: 5
+    max: 20
+    idle_timeout: 300
+:: /config
+
+:: config[section=cache]
+cache:
+  provider: %{cache_provider}
+  ttl: ${CACHE_TTL}
+  /!Important!/: Ensure Redis is running
+:: /config
+
+### Example 3: Tutorial Document
+
+:: tutorial[level=beginner, estimated_time="30 minutes"]
+# Getting Started with VML
+
+## Prerequisites
+
+Before starting, ensure you have:
+- [x] Text editor with VML support
+- [x] Basic understanding of markup languages
+- [ ] ${optional_requirement}
+
+## Step 1: Create Your First Document
+
+@instruction[step=1]
+Create a new file called `hello.vml` and add:
+
+```vml
+---
+title: My First VML Document
+author: ${your_name}
+---
+
+# Hello, VML!
+
+This is my first document using !!VML!!.
+```
+
+## Step 2: Add Dynamic Content
+
+@instruction[step=2]
+Now let's add some dynamic elements:
+
+```vml
+Welcome ${reader_name}!
+
+:: section[class=highlight]
+Today we'll learn about:
+- Variables: ${example_var}
+- Templates: %{example_template}
+- Directives: @example_directive
+:: /section
+```
+
+(*Note*): Variables are replaced at render time!
+
+## Step 3: Test Your Knowledge
+
+@quiz[id=basics]
+1. What syntax is used for variables?
+   - [ ] {{variable}}
+   - [x] ${variable}
+   - [ ] %(variable)%
+
+2. How do you emphasize text?
+   - [ ] **text**
+   - [ ] __text__
+   - [x] !!text!!
+
+/+Congratulations!+/ You've completed the tutorial!
+
+:: /tutorial
+
+## Best Practices {#best-practices}
+
+### 1. Document Structure
+
+Always start with metadata:
+```vml
+---
+title: Document Title
+author: Author Name
+version: 1.0
+---
+```
+
+### 2. Semantic Markup
+
+Use markup that conveys meaning:
+- !!emphasis!! for critical information
+- <~context~> for background details
+- (*notes*) for asides
+- /!warnings!/ for cautions
+- /+success+/ for positive outcomes
+
+### 3. Section Organization
+
+:: section[class=best-practice]
+Structure documents with clear sections:
+
+```vml
+:: section[type=main-content]
+  :: subsection[topic=introduction]
+  Content here...
+  :: /subsection
+  
+  :: subsection[topic=details]
+  More content...
+  :: /subsection
+:: /section
+```
+:: /section
+
+### 4. Variable Naming
+
+Use descriptive variable names:
+- Good: ${user_email}, ${api_endpoint}
+- Bad: ${var1}, ${x}
+
+### 5. Template Usage
+
+Define reusable templates for consistency:
+```vml
+%{standard_header}
+%{navigation_menu}
+%{standard_footer}
+```
+
+## Conclusion
+
+VML provides a powerful and flexible way to create dynamic, structured documents. Its combination of:
+
+- Familiar Markdown syntax
+- Enhanced markup capabilities  
+- Dynamic variables and templates
+- Structured sections and directives
+- Rich metadata support
+
+Makes it ideal for:
+- Technical documentation
+- API references
+- Configuration files
+- Interactive tutorials
+- Dynamic reports
+
+For more information, see the [[official VML specification]] or @include "advanced-guide.vml".
+
+---
+footer: true
+copyright: 2024 VML Project
+license: MIT
+---

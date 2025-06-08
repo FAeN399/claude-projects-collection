@@ -1,0 +1,52 @@
+# Core AI/ML dependencies for myth generation and analysis
+openai==1.3.5
+anthropic==0.7.7
+langchain==0.0.340
+transformers==4.35.2
+
+# Data processing and analysis
+numpy==1.24.3
+pandas==2.0.3
+scipy==1.11.4
+
+# Natural language processing
+spacy==3.7.2
+nltk==3.8.1
+textblob==0.17.1
+
+# Sacred geometry and visualization
+matplotlib==3.7.2
+plotly==5.18.0
+networkx==3.1
+
+# Web framework for API endpoints
+flask==3.0.0
+flask-cors==4.0.0
+flask-restful==0.3.10
+
+# Database and caching
+redis==5.0.1
+pymongo==4.6.0
+sqlalchemy==2.0.23
+
+# Testing and quality assurance
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# Utilities
+python-dotenv==1.0.0
+pydantic==2.5.2
+click==8.1.7
+rich==13.7.0
+
+# Monitoring and logging
+prometheus-client==0.19.0
+structlog==23.2.0
+
+# Development tools
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
+pre-commit==3.5.0

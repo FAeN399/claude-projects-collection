@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Character Metadata Schema",
+  "description": "Schema for cataloging mythological characters and figures",
+  "type": "object",
+  "required": ["id", "name", "type", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-]+$",
+      "description": "Unique identifier for the character"
+    },
+    "name": {
+      "type": "object",
+      "required": ["primary"],
+      "properties": {
+        "primary": {
+          "type": "string",
+          "description": "Main name of the character"
+        },
+        "alternates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Alternative names or spellings"
+        },
+        "epithets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Titles and epithets"
+        },
+        "etymology": {
+          "type": "string",
+          "description": "Name meaning and origin"
+        }
+      }
+    },
+    "type": {
+      "type": "string",
+      "enum": ["deity", "hero", "trickster", "monster", "guide", "mortal", "demigod"],
+      "description": "Primary character archetype"
+    },
+    "pantheon": {
+      "type": "string",
+      "description": "Cultural pantheon or tradition"
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Areas of influence or control"
+        },
+        "symbols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Associated symbols and items"
+        },
+        "powers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Supernatural abilities"
+        },
+        "weaknesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Vulnerabilities or flaws"
+        },
+        "appearance": {
+          "type": "string",
+          "description": "Physical description"
+        },
+        "personality": {
+          "type": "string",
+          "description": "Personality traits and behavior"
+        }
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "parents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "siblings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "consorts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enemies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mentors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "students": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "appearances": {
+      "type": "object",
+      "properties": {
+        "stories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Stories where character plays major role"
+        },
+        "mentions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Stories with minor appearances"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Cultural references and texts"
+        }
+      }
+    },
+    "evolution": {
+      "type": "object",
+      "properties": {
+        "origins": {
+          "type": "string",
+          "description": "Historical development of the character"
+        },
+        "variations": {
+          "type": "string",
+          "description": "Different cultural interpretations"
+        },
+        "modern_interpretations": {
+          "type": "string",
+          "description": "Contemporary relevance and adaptations"
+        },
+        "syncretism": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Characters merged or identified with"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["created_date", "status"],
+      "properties": {
+        "created_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "review", "published", "archived"]
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Primary sources and references"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Searchable keywords and categories"
+    }
+  }
+}

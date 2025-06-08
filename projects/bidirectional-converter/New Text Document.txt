@@ -1,0 +1,348 @@
+Implementation Design
+1. Claude API Integration Module
+pythonimport anthropic
+import json
+import yaml
+from typing import Dict, Optional, List
+from dataclasses import dataclass
+
+@dataclass
+class ConversionConfig:
+    model: str = "claude-3-opus-20240229"
+    temperature: float = 0.3
+    max_tokens: int = 4000
+    system_prompt: Optional[str] = None
+    
+class BidirectionalConverter:
+    def __init__(self, api_key: str, config: ConversionConfig = None):
+        self.client = anthropic.Anthropic(api_key=api_key)
+        self.config = config or ConversionConfig()
+        self.conversion_cache = {}
+        
+    def text_to_code(self, 
+                     text: str, 
+                     target_language: str,
+                     context: Optional[Dict] = None) -> Dict[str, any]:
+        """Convert natural language to code using Claude API"""
+        
+        system_prompt = self._build_text_to_code_prompt(target_language, context)
+        
+        response = self.client.messages.create(
+            model=self.config.model,
+            max_tokens=self.config.max_tokens,
+            temperature=self.config.temperature,
+            system=system_prompt,
+            messages=[
+                {"role": "user", "content": text}
+            ]
+        )
+        
+        return self._parse_code_response(response.content[0].text, target_language)
+    
+    def code_to_text(self,
+                     code: str,
+                     source_language: str,
+                     detail_level: str = "standard") -> Dict[str, any]:
+        """Convert code to natural language explanation using Claude API"""
+        
+        system_prompt = self._build_code_to_text_prompt(source_language, detail_level)
+        
+        response = self.client.messages.create(
+            model=self.config.model,
+            max_tokens=self.config.max_tokens,
+            temperature=self.config.temperature,
+            system=system_prompt,
+            messages=[
+                {"role": "user", "content": code}
+            ]
+        )
+        
+        return self._parse_text_response(response.content[0].text, detail_level)
+2. Enhanced GUI Application
+The GUI would extend your existing design with bidirectional capabilities:
+pythonclass BidirectionalConverterGUI:
+    def __init__(self, root):
+        self.root = root
+        self.converter = None  # Will be initialized with API key
+        
+        # Create tabbed interface for different conversion modes
+        self.notebook = ttk.Notebook(root)
+        
+        # Text-to-Code tab
+        self.t2c_frame = self._create_text_to_code_tab()
+        self.notebook.add(self.t2c_frame, text="Text → Code")
+        
+        # Code-to-Text tab
+        self.c2t_frame = self._create_code_to_text_tab()
+        self.notebook.add(self.c2t_frame, text="Code → Text")
+        
+        # Configuration tab
+        self.config_frame = self._create_config_tab()
+        self.notebook.add(self.config_frame, text="Configuration")
+3. Format-Specific Handlers
+To support multiple programming languages and formats:
+pythonclass FormatRegistry:
+    def __init__(self):
+        self.text_to_code_templates = {}
+        self.code_to_text_templates = {}
+        self.validators = {}
+        
+    def register_format(self, 
+                       format_name: str,
+                       t2c_template: str,
+                       c2t_template: str,
+                       validator: Optional[callable] = None):
+        """Register a new format with conversion templates"""
+        
+        self.text_to_code_templates[format_name] = t2c_template
+        self.code_to_text_templates[format_name] = c2t_template
+        if validator:
+            self.validators[format_name] = validator Architecture Overview
+Your bidirectional converter system would consist of three main components:
+Core Converter Engine: A Python module that interfaces with Claude API to handle both conversion directions, managing prompts, context, and format-specific rules.
+GUI Application: An enhanced version of your existing interface that supports bidirectional conversion with separate panels for each direction and API configuration.
+Format Manager: A flexible system for defining conversion rules, templates, and validation for different code formats and natural language styles.
+Implementation Design
+1. Claude API Integration Module
+pythonimport anthropic
+import json
+import yaml
+from typing import Dict, Optional, List
+from dataclasses import dataclass
+
+@dataclass
+class ConversionConfig:
+    model: str = "claude-3-opus-20240229"
+    temperature: float = 0.3
+    max_tokens: int = 4000
+    system_prompt: Optional[str] = None
+    
+class BidirectionalConverter:
+    def __init__(self, api_key: str, config: ConversionConfig = None):
+        self.client = anthropic.Anthropic(api_key=api_key)
+        self.config = config or ConversionConfig()
+        self.conversion_cache = {}
+        
+    def text_to_code(self, 
+                     text: str, 
+                     target_language: str,
+                     context: Optional[Dict] = None) -> Dict[str, any]:
+        """Convert natural language to code using Claude API"""
+        
+        system_prompt = self._build_text_to_code_prompt(target_language, context)
+        
+        response = self.client.messages.create(
+            model=self.config.model,
+            max_tokens=self.config.max_tokens,
+            temperature=self.config.temperature,
+            system=system_prompt,
+            messages=[
+                {"role": "user", "content": text}
+            ]
+        )
+        
+        return self._parse_code_response(response.content[0].text, target_language)
+    
+    def code_to_text(self,
+                     code: str,
+                     source_language: str,
+                     detail_level: str = "standard") -> Dict[str, any]:
+        """Convert code to natural language explanation using Claude API"""
+        
+        system_prompt = self._build_code_to_text_prompt(source_language, detail_level)
+        
+        response = self.client.messages.create(
+            model=self.config.model,
+            max_tokens=self.config.max_tokens,
+            temperature=self.config.temperature,
+            system=system_prompt,
+            messages=[
+                {"role": "user", "content": code}
+            ]
+        )
+        
+        return self._parse_text_response(response.content[0].text, detail_level)
+2. Enhanced GUI Application
+The GUI would extend your existing design with bidirectional capabilities:
+pythonclass BidirectionalConverterGUI:
+    def __init__(self, root):
+        self.root = root
+        self.converter = None  # Will be initialized with API key
+        
+        # Create tabbed interface for different conversion modes
+        self.notebook = ttk.Notebook(root)
+        
+        # Text-to-Code tab
+        self.t2c_frame = self._create_text_to_code_tab()
+        self.notebook.add(self.t2c_frame, text="Text → Code")
+        
+        # Code-to-Text tab
+        self.c2t_frame = self._create_code_to_text_tab()
+        self.notebook.add(self.c2t_frame, text="Code → Text")
+        
+        # Configuration tab
+        self.config_frame = self._create_config_tab()
+        self.notebook.add(self.config_frame, text="Configuration")
+3. Format-Specific Handlers
+To support multiple programming languages and formats:
+pythonclass FormatRegistry:
+    def __init__(self):
+        self.text_to_code_templates = {}
+        self.code_to_text_templates = {}
+        self.validators = {}
+        
+    def register_format(self, 
+                       format_name: str,
+                       t2c_template: str,
+                       c2t_template: str,
+                       validator: Optional[callable] = None):
+        """Register a new format with conversion templates"""
+        
+        self.text_to_code_templates[format_name] = t2c_template
+        self.code_to_text_templates[format_name] = c2t_template
+        if validator:
+            self.validators[format_name] = validator
+Key Features
+Intelligent Context Management
+The system would maintain context across conversions, allowing for:
+
+Preservation of variable names and function signatures
+Consistent terminology and naming conventions
+Reference to previously converted elements
+
+Multi-Format Support
+Built-in support for common formats:
+
+Programming Languages: Python, JavaScript, Java, C++, SQL
+Markup Languages: HTML, XML, JSON, YAML
+Domain-Specific: AML (as in your example), configuration files, schemas
+
+Conversion Modes
+Three conversion depth levels:
+
+Summary: High-level overview of code functionality
+Standard: Balanced explanation with key implementation details
+Detailed: Line-by-line analysis with technical specifics
+
+Validation and Quality Assurance
+The system would include:
+
+Syntax validation for generated code
+Semantic consistency checking
+Round-trip conversion testing (text → code → text)
+
+API Workflow Example
+For text-to-code conversion:
+python# Initialize converter with API key
+converter = BidirectionalConverter(api_key="your-api-key")
+
+# Convert natural language to Python code
+result = converter.text_to_code(
+    text="Create a function that calculates compound interest",
+    target_language="python",
+    context={
+        "style": "functional",
+        "include_docstrings": True,
+        "type_hints": True
+    }
+)
+
+# Result includes:
+# - Generated code
+# - Metadata (complexity, dependencies)
+# - Validation status
+# - Suggested improvements
+For code-to-text conversion:
+python# Convert code to explanation
+explanation = converter.code_to_text(
+    code="""
+    def calculate_compound_interest(principal, rate, time, n=12):
+        amount = principal * (1 + rate/n)**(n*time)
+        return amount - principal
+    """,
+    source_language="python",
+    detail_level="standard"
+)
+
+# Explanation includes:
+# - Function purpose
+# - Parameter descriptions
+# - Algorithm explanation
+# - Usage examples
+Integration with Your Pipeline
+The converter would integrate seamlessly with your file format conversion pipeline:
+
+Input Processing: Accept files in various formats (PDF, DOCX, source code files)
+Conversion: Use Claude API for intelligent transformation
+Format Generation: Output in multiple formats (as you specified: AML, Markdown, JSON)
+Validation: Ensure output meets format specifications
+
+Best Practices Implementation
+The system would follow Claude API best practices:
+
+Prompt Engineering: XML-structured prompts for clarity and consistency
+Error Handling: Graceful degradation with fallback options
+Rate Limiting: Automatic request throttling to respect API limits
+Caching: Store common conversions to reduce API calls
+Batch Processing: Handle multiple files efficiently
+
+This architecture provides a robust foundation for your bidirectional converter while maintaining the flexibility to extend functionality as needed. 
+
+
+Key Features
+Custom Markup System
+The editor comes with predefined markup types that you can apply to text:
+
+**///EMPHASIS\**: Highlights critical or important text
+<<<CONTEXT>>>: Provides background or domain-specific information
+{{INSTRUCTION}}: Specific requirements for the AI
+[[VARIABLE]]: Placeholder text that should become parameters
+!!!WARNING!!!: Important notes or edge cases
+
+Right-Click Context Menu
+When you select text and right-click, you get options to:
+
+Apply any markup type to the selection
+Apply markup to all occurrences of the selected text throughout the document
+Remove markup from the selection
+Standard cut/copy/paste operations
+
+Automatic Prompt Enhancement
+Every prompt sent to Claude automatically includes a markup key that explains what each markup means. For example:
+MARKUP KEY:
+========================================
+
+EMPHASIS:
+  Format: ///text\\\
+  Purpose: Emphasizes important text
+  Example: ///IMPORTANT\\\
+
+CONTEXT:
+  Format: <<<text>>>
+  Purpose: Provides contextual information
+  Example: <<<context: technical>>>
+
+[... and so on for each markup type ...]
+Markup Editor
+The Markup Editor dialog allows you to:
+
+Create custom markup types with your own delimiters
+Set colors, backgrounds, and font styles
+Edit or delete existing markups
+Import/export markup definitions as JSON files
+Reset to default markups
+
+Usage Example
+When you write something like:
+Create a function that ///validates email addresses\\\ using regex.
+The function should <<<context: handle international domains>>>.
+{{Must return a boolean value}}
+It should validate [[email_parameter]] and handle !!!empty strings!!!.
+The AI receives the full context with the markup key, ensuring it understands the emphasis on validation, the context about international domains, the strict requirement for boolean return, the parameter naming, and the warning about edge cases.
+Keyboard Shortcuts
+
+Ctrl+M: Quick markup dialog for the selected text
+Right-click: Full context menu with all markup options
+All standard text editing shortcuts remain available
+
+

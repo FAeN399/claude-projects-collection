@@ -1,0 +1,251 @@
+# Mythological Forge - Build Automation System
+# ============================================
+# This Makefile provides a unified interface for all project operations,
+# abstracting complex command sequences into simple, memorable targets.
+
+# Configuration Variables
+SHELL := /bin/bash
+.DEFAULT_GOAL := help
+DOCKER_IMAGE := mythforge:latest
+DOCKER_CONTAINER := mythforge-app
+PYTHON := python3
+NODE := node
+NPM := npm
+VENV := .venv
+PORT := 3000
+
+# Color output for better visibility
+CYAN := \033[0;36m
+GREEN := \033[0;32m
+YELLOW := \033[0;33m
+RED := \033[0;31m
+NC := \033[0m # No Color
+
+# Phony targets declaration
+.PHONY: help setup install-deps create-venv run run-dev test test-unit test-integration \
+        test-coverage lint format validate build build-docker clean clean-all \
+        docker-up docker-down docker-logs migrate backup restore deploy-staging \
+        deploy-prod monitor health-check version
+
+# Default target - Display help information
+help:
+	@echo -e "${CYAN}Mythological Forge - Build Automation${NC}"
+	@echo -e "${CYAN}=====================================
+
+	@echo -e "${GREEN}Setup & Installation:${NC}"
+	@echo "  make setup          - Complete environment setup (venv, deps, build)"
+	@echo "  make install-deps   - Install all dependencies (Node & Python)"
+	@echo "  make create-venv    - Create Python virtual environment"
+	@echo ""
+	@echo -e "${GREEN}Development:${NC}"
+	@echo "  make run           - Run production server"
+	@echo "  make run-dev       - Run development server with hot-reload"
+	@echo "  make test          - Run complete test suite"
+	@echo "  make lint          - Run code linters"
+	@echo "  make format        - Auto-format code"
+	@echo "  make validate      - Run all quality checks"
+	@echo ""
+	@echo -e "${GREEN}Build & Deploy:${NC}"
+	@echo "  make build         - Build production assets"
+	@echo "  make build-docker  - Build Docker image"
+	@echo "  make docker-up     - Start Docker containers"
+	@echo "  make docker-down   - Stop Docker containers"
+	@echo "  make deploy-staging - Deploy to staging environment"
+	@echo ""
+	@echo -e "${GREEN}Maintenance:${NC}"
+	@echo "  make clean         - Remove build artifacts"
+	@echo "  make clean-all     - Deep clean (including deps)"
+	@echo "  make migrate       - Run database migrations"
+	@echo "  make backup        - Backup application data"
+	@echo "  make monitor       - View application metrics"
+
+# Complete environment setup
+setup: create-venv install-deps build
+	@echo -e "${GREEN}✓ Environment setup complete!${NC}"
+	@echo -e "${YELLOW}Run 'make run-dev' to start development server${NC}"
+
+# Create Python virtual environment
+create-venv:
+	@echo -e "${CYAN}Creating Python virtual environment...${NC}"
+	@if [ ! -d "$(VENV)" ]; then \
+		$(PYTHON) -m venv $(VENV); \
+		echo -e "${GREEN}✓ Virtual environment created${NC}"; \
+	else \
+		echo -e "${YELLOW}Virtual environment already exists${NC}"; \
+	fi
+	@echo "Activate with: source $(VENV)/bin/activate"
+
+# Install all dependencies
+install-deps: create-venv
+	@echo -e "${CYAN}Installing Node dependencies...${NC}"
+	$(NPM) ci
+	@echo -e "${CYAN}Installing Python dependencies...${NC}"
+	@source $(VENV)/bin/activate && pip install --upgrade pip
+	@source $(VENV)/bin/activate && pip install -r requirements.txt
+	@echo -e "${GREEN}✓ All dependencies installed${NC}"
+
+# Run production server
+run: check-env
+	@echo -e "${CYAN}Starting Mythological Forge (production)...${NC}"
+	@source $(VENV)/bin/activate && $(NODE) server.js
+
+# Run development server with hot-reload
+run-dev: check-env
+	@echo -e "${CYAN}Starting Mythological Forge (development)...${NC}"
+	@source $(VENV)/bin/activate && $(NPM) run dev
+
+# Run complete test suite
+test: test-unit test-integration
+	@echo -e "${GREEN}✓ All tests passed!${NC}"
+
+# Run unit tests only
+test-unit:
+	@echo -e "${CYAN}Running unit tests...${NC}"
+	@source $(VENV)/bin/activate && $(NPM) test
+	@source $(VENV)/bin/activate && pytest tests/unit -v
+
+# Run integration tests
+test-integration:
+	@echo -e "${CYAN}Running integration tests...${NC}"
+	@source $(VENV)/bin/activate && pytest tests/integration -v
+
+# Generate test coverage report
+test-coverage:
+	@echo -e "${CYAN}Generating coverage report...${NC}"
+	@source $(VENV)/bin/activate && $(NPM) run test -- --coverage
+	@source $(VENV)/bin/activate && pytest --cov=src --cov-report=html
+	@echo -e "${GREEN}✓ Coverage report generated in htmlcov/${NC}"
+
+# Run code linters
+lint:
+	@echo -e "${CYAN}Running linters...${NC}"
+	$(NPM) run lint
+	@source $(VENV)/bin/activate && flake8 src/
+	@source $(VENV)/bin/activate && mypy src/
+	@echo -e "${GREEN}✓ Code quality checks passed${NC}"
+
+# Auto-format code
+format:
+	@echo -e "${CYAN}Formatting code...${NC}"
+	$(NPM) run format
+	@source $(VENV)/bin/activate && black src/ tests/
+	@echo -e "${GREEN}✓ Code formatted${NC}"
+
+# Run all validation checks (lint + test)
+validate: lint test
+	@echo -e "${GREEN}✓ All validation checks passed${NC}"
+
+# Build production assets
+build:
+	@echo -e "${CYAN}Building production assets...${NC}"
+	$(NPM) run build
+	@echo -e "${GREEN}✓ Build complete${NC}"
+
+# Build Docker image
+build-docker:
+	@echo -e "${CYAN}Building Docker image...${NC}"
+	docker build -t $(DOCKER_IMAGE) .
+	@echo -e "${GREEN}✓ Docker image built: $(DOCKER_IMAGE)${NC}"
+
+# Clean build artifacts
+clean:
+	@echo -e "${CYAN}Cleaning build artifacts...${NC}"
+	rm -rf dist/ build/ *.egg-info __pycache__ .pytest_cache
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type f -name "*.pyc" -delete
+	@echo -e "${GREEN}✓ Build artifacts removed${NC}"
+
+# Deep clean including dependencies
+clean-all: clean
+	@echo -e "${CYAN}Performing deep clean...${NC}"
+	rm -rf node_modules/ $(VENV)/ .coverage htmlcov/
+	@echo -e "${GREEN}✓ Deep clean complete${NC}"
+
+# Docker operations
+docker-up: build-docker
+	@echo -e "${CYAN}Starting Docker containers...${NC}"
+	docker-compose up -d
+	@echo -e "${GREEN}✓ Containers started${NC}"
+	@echo "Access application at http://localhost:$(PORT)"
+
+docker-down:
+	@echo -e "${CYAN}Stopping Docker containers...${NC}"
+	docker-compose down
+	@echo -e "${GREEN}✓ Containers stopped${NC}"
+
+docker-logs:
+	docker-compose logs -f
+
+# Database operations
+migrate:
+	@echo -e "${CYAN}Running database migrations...${NC}"
+	@source $(VENV)/bin/activate && alembic upgrade head
+	@echo -e "${GREEN}✓ Migrations complete${NC}"
+
+# Backup application data
+backup:
+	@echo -e "${CYAN}Creating backup...${NC}"
+	@mkdir -p backups
+	@timestamp=$$(date +%Y%m%d_%H%M%S); \
+	tar -czf backups/mythforge_backup_$$timestamp.tar.gz \
+		--exclude=node_modules \
+		--exclude=$(VENV) \
+		--exclude=.git \
+		--exclude=dist \
+		data/ config/ src/
+	@echo -e "${GREEN}✓ Backup created in backups/${NC}"
+
+# Restore from backup
+restore:
+	@if [ -z "$(BACKUP_FILE)" ]; then \
+		echo -e "${RED}Error: BACKUP_FILE not specified${NC}"; \
+		echo "Usage: make restore BACKUP_FILE=backups/mythforge_backup_TIMESTAMP.tar.gz"; \
+		exit 1; \
+	fi
+	@echo -e "${CYAN}Restoring from $(BACKUP_FILE)...${NC}"
+	tar -xzf $(BACKUP_FILE)
+	@echo -e "${GREEN}✓ Restore complete${NC}"
+
+# Deployment targets
+deploy-staging:
+	@echo -e "${CYAN}Deploying to staging...${NC}"
+	./scripts/deploy.sh staging
+	@echo -e "${GREEN}✓ Staging deployment complete${NC}"
+
+deploy-prod:
+	@echo -e "${RED}Production deployment requires confirmation${NC}"
+	@read -p "Deploy to production? [y/N] " confirm; \
+	if [ "$$confirm" = "y" ]; then \
+		echo -e "${CYAN}Deploying to production...${NC}"; \
+		./scripts/deploy.sh production; \
+		echo -e "${GREEN}✓ Production deployment complete${NC}"; \
+	else \
+		echo "Deployment cancelled"; \
+	fi
+
+# Monitoring and health checks
+monitor:
+	@echo -e "${CYAN}Opening monitoring dashboard...${NC}"
+	@source $(VENV)/bin/activate && python scripts/monitor.py
+
+health-check:
+	@echo -e "${CYAN}Running health checks...${NC}"
+	@curl -s http://localhost:$(PORT)/health | jq .
+	@echo -e "${GREEN}✓ Health check complete${NC}"
+
+# Version information
+version:
+	@echo -e "${CYAN}Mythological Forge Version Information${NC}"
+	@echo -e "Project Version: $$(cat package.json | jq -r .version)"
+	@echo -e "Node Version: $$($(NODE) --version)"
+	@echo -e "Python Version: $$($(PYTHON) --version)"
+	@echo -e "Docker Image: $(DOCKER_IMAGE)"
+
+# Utility function to check environment
+check-env:
+	@if [ ! -f ".env" ]; then \
+		echo -e "${YELLOW}Warning: .env file not found${NC}"; \
+		echo "Creating from template..."; \
+		cp .env.example .env; \
+		echo -e "${GREEN}✓ Created .env file - please update with your values${NC}"; \
+	fi

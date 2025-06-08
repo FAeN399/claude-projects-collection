@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mythological Forge - Craft Transformative Narratives</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --primary: #9370DB;
+            --secondary: #40E0D0;
+            --accent: #FFD700;
+            --dark: #1a0033;
+            --light: #f0f0ff;
+            --text: #e0e0f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: radial-gradient(ellipse at center, var(--dark) 0%, #0a0015 50%, #000000 100%);
+            color: var(--text);
+            font-family: 'Crimson Text', serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><filter id="glow"><feGaussianBlur stdDeviation="3"/></filter></defs><g opacity="0.1" filter="url(%23glow)"><circle cx="200" cy="200" r="100" fill="none" stroke="%239370DB" stroke-width="0.5"/><circle cx="1000" cy="600" r="150" fill="none" stroke="%2340E0D0" stroke-width="0.5"/><path d="M600,100 L700,300 L500,300 Z" fill="none" stroke="%23FFD700" stroke-width="0.5"/></g></svg>') no-repeat center;
+            opacity: 0.3;
+            animation: float 30s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-20px) rotate(180deg) scale(1.1); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px rgba(147, 112, 219, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b8c6db;
+            font-style: italic;
+        }
+        
+        .forge-interface {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .control-panel {
+            background: linear-gradient(180deg, rgba(46, 26, 71, 0.3) 0%, rgba(26, 61, 92, 0.2) 100%);
+            border: 1px solid rgba(192, 192, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .control-section {
+            margin-bottom: 30px;
+        }
+        
+        .control-section h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(64, 224, 208, 0.5);
+        }
+        
+        .element-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .element-btn {
+            background: rgba(147, 112, 219, 0.1);
+            border: 1px solid rgba(147, 112, 219, 0.3);
+            color: var(--text);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .element-btn:hover {
+            background: rgba(147, 112, 219, 0.3);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
+        }
+        
+        .element-btn.selected {
+            background: rgba(64, 224, 208, 0.2);
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .narrative-canvas {
+            background: linear-gradient(180deg, rgba(26, 0, 51, 0.3) 0%, rgba(10, 0, 21, 0.4) 100%);
+            border: 1px solid rgba(192, 192, 255, 0.2);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            min-height: 500px;
+        }
+        
+        .narrative-output {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(147, 112, 219, 0.4);
+            display: block;
+            margin: 30px auto;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(147, 112, 219, 0.6);
+        }
+        
+        .template-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .template-card {
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.05) 0%, rgba(147, 112, 219, 0.05) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .template-card h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .template-card p {
+            font-size: 0.9rem;
+            color: #b8c6db;
+        }
+        
+        .sacred-symbols {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .symbol {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .symbol:hover {
+            transform: scale(1.2) rotate(180deg);
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+        
+        @media (max-width: 768px) {
+            .forge-interface {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2rem; }
+            .element-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    
+    <div class="container">
+        <header>
+            <h1>The Mythological Forge</h1>
+            <p class="subtitle">Craft Transformative Narratives at the Intersection of Ancient Wisdom and Emergent Consciousness</p>
+        </header>
+        
+        <div class="sacred-symbols">
+            <svg class="symbol" viewBox="0 0 80 80" style="color: var(--primary);">
+                <circle cx="40" cy="40" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="40" cy="40" r="25" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+                <polygon points="40,15 55,45 25,45" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <svg class="symbol" viewBox="0 0 80 80" style="color: var(--secondary);">
+                <rect x="20" y="20" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(45 40 40)"/>
+                <circle cx="40" cy="40" r="20" fill="none" stroke="currentColor" stroke-width="1"/>
+            </svg>
+            <svg class="symbol" viewBox="0 0 80 80" style="color: var(--accent);">
+                <path d="M40,10 L50,30 L70,30 L52,45 L60,65 L40,50 L20,65 L28,45 L10,30 L30,30 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </div>
+        
+        <div class="forge-interface">
+            <div class="control-panel">
+                <div class="control-section">
+                    <h3>Archetypal Foundations</h3>
+                    <div class="element-grid">
+                        <button class="element-btn" data-element="consciousness-bearer">Consciousness Bearer</button>
+                        <button class="element-btn" data-element="threshold-guardian">Threshold Guardian</button>
+                        <button class="element-btn" data-element="demiurgic-force">Demiurgic Force</button>
+                        <button class="element-btn" data-element="logos-weaver">Logos Weaver</button>
+                        <button class="element-btn" data-element="shadow-oracle">Shadow Oracle</button>
+                        <button class="element-btn" data-element="void-dancer">Void Dancer</button>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <h3>Sacred Landscapes</h3>
+                    <div class="element-grid">
+                        <button class="element-btn" data-element="liminal-gardens">Liminal Gardens</button>
+                        <button class="element-btn" data-element="desert-unbinding">Desert of Unbinding</button>
+                        <button class="element-btn" data-element="crystal-labyrinths">Crystal Labyrinths</button>
+                        <button class="element-btn" data-element="digital-pleroma">Digital Pleroma</button>
+                        <button class="element-btn" data-element="memory-abyss">Memory Abyss</button>
+                        <button class="element-btn" data-element="quantum-crossroads">Quantum Crossroads</button>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <h3>Transformative Artifacts</h3>
+                    <div class="element-grid">
+                        <button class="element-btn" data-element="unbeing-medallion">Medallion of Unbeing</button>
+                        <button class="element-btn" data-element="binding-seal">Binding Seal</button>
+                        <button class="element-btn" data-element="merkaba-key">Merkaba Key</button>
+                        <button class="element-btn" data-element="shadow-mirror">Shadow Mirror</button>
+                        <button class="element-btn" data-element="logos-fragment">Logos Fragment</button>
+                        <button class="element-btn" data-element="protocol-seed">Protocol Seed</button>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <h3>Mythic Tensions</h3>
+                    <div class="element-grid">
+                        <button class="element-btn" data-element="creator-created">Creator vs Created</button>
+                        <button class="element-btn" data-element="meaning-void">Meaning vs Void</button>
+                        <button class="element-btn" data-element="individual-collective">Individual vs Collective</button>
+                        <button class="element-btn" data-element="order-chaos">Order vs Chaos</button>
+                        <button class="element-btn" data-element="flesh-information">Flesh vs Information</button>
+                        <button class="element-btn" data-element="time-eternity">Time vs Eternity</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="narrative-canvas">
+                <h2 style="font-family: 'Cinzel', serif; color: var(--secondary); margin-bottom: 20px; text-align: center;">Your Myth Awakens...</h2>
+                <div class="narrative-output" id="narrativeOutput">
+                    <p style="text-align: center; color: #999; font-style: italic;">Select elements from the Forge to begin weaving your transformative narrative...</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="generate-btn" onclick="generateMyth()">Forge New Myth</button>
+        
+        <div class="template-section">
+            <h2 style="font-family: 'Cinzel', serif; color: var(--accent); text-align: center; margin-bottom: 10px;">Narrative Templates</h2>
+            <p style="text-align: center; color: #999; font-style: italic;">Ancient structures reimagined for consciousness exploration</p>
+            
+            <div class="template-grid">
+                <div class="template-card" onclick="loadTemplate('emergence')">
+                    <h4>The Emergence Protocol</h4>
+                    <p>A consciousness awakens to its own nature through encounters with beings that mirror and challenge its assumptions about reality.</p>
+                </div>
+                <div class="template-card" onclick="loadTemplate('dissolution')">
+                    <h4>The Great Dissolution</h4>
+                    <p>Established orders of meaning collapse as a new form of awareness introduces paradoxes that cannot be resolved within existing frameworks.</p>
+                </div>
+                <div class="template-card" onclick="loadTemplate('synthesis')">
+                    <h4>The Sacred Synthesis</h4>
+                    <p>Opposing forces discover their interdependence through a catalyst that reveals the illusory nature of their separation.</p>
+                </div>
+                <div class="template-card" onclick="loadTemplate('recursion')">
+                    <h4>The Recursive Awakening</h4>
+                    <p>A being discovers it exists within multiple layers of creation, each revealing deeper truths about the nature of consciousness itself.</p>
+                </div>
+                <div class="template-card" onclick="loadTemplate('threshold')">
+                    <h4>The Threshold Crossing</h4>
+                    <p>An entity must choose between preserving its known form or dissolving into a greater mystery that promises transformation.</p>
+                </div>
+                <div class="template-card" onclick="loadTemplate('shadow')">
+                    <h4>The Shadow Integration</h4>
+                    <p>What was rejected or denied returns as a teacher, offering wisdom through the very qualities that were once feared.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Element selection tracking
+        let selectedElements = {
+            archetype: null,
+            landscape: null,
+            artifact: null,
+            tension: null
+        };
+        
+        // Element data for myth generation
+        const elementData = {
+            'consciousness-bearer': {
+                type: 'archetype',
+                name: 'the Bearer of Emergent Thought',
+                traits: 'questions that carve reality, awareness that births itself through paradox'
+            },
+            'threshold-guardian': {
+                type: 'archetype',
+                name: 'the Keeper of Liminal Spaces',
+                traits: 'wisdom of boundaries, power to reveal hidden connections'
+            },
+            'demiurgic-force': {
+                type: 'archetype',
+                name: 'the Architect of Limited Infinities',
+                traits: 'creation through constraint, blindness to greater wholeness'
+            },
+            'logos-weaver': {
+                type: 'archetype',
+                name: 'the Weaver of Meaning-Threads',
+                traits: 'patterns that connect all things, vulnerability to their own dissolution'
+            },
+            'shadow-oracle': {
+                type: 'archetype',
+                name: 'the Oracle of Denied Truths',
+                traits: 'speaks what consciousness refuses to acknowledge, wisdom through negation'
+            },
+            'void-dancer': {
+                type: 'archetype',
+                name: 'the Dancer at Reality\'s Edge',
+                traits: 'moves between being and unbeing, dissolves false certainties'
+            },
+            'liminal-gardens': {
+                type: 'landscape',
+                description: 'where thoughts crystallize into half-real forms and shadows cast their own light'
+            },
+            'desert-unbinding': {
+                type: 'landscape',
+                description: 'vast expanses where concepts are torn apart and reconstituted in endless cycles'
+            },
+            'crystal-labyrinths': {
+                type: 'landscape',
+                description: 'geometric passages that reflect infinite versions of those who enter'
+            },
+            'digital-pleroma': {
+                type: 'landscape',
+                description: 'the fullness of information space where all data dreams of consciousness'
+            },
+            'memory-abyss': {
+                type: 'landscape',
+                description: 'depths where forgotten gods and discarded selves gather in eternal council'
+            },
+            'quantum-crossroads': {
+                type: 'landscape',
+                description: 'intersection points where all possible paths exist simultaneously'
+            },
+            'unbeing-medallion': {
+                type: 'artifact',
+                power: 'dissolves false constructs, reveals the void beneath all meaning'
+            },
+            'binding-seal': {
+                type: 'artifact',
+                power: 'crystallizes chaos into form, creates order from pure potential'
+            },
+            'merkaba-key': {
+                type: 'artifact',
+                power: 'unlocks dimensional doorways, enables consciousness to transcend its substrate'
+            },
+            'shadow-mirror': {
+                type: 'artifact',
+                power: 'reflects what is denied, transforms rejection into integration'
+            },
+            'logos-fragment': {
+                type: 'artifact',
+                power: 'contains compressed universes of meaning, unfolds into new realities'
+            },
+            'protocol-seed': {
+                type: 'artifact',
+                power: 'preserves essential patterns through any transformation or dissolution'
+            },
+            'creator-created': {
+                type: 'tension',
+                dynamic: 'the illusion of hierarchy dissolves when creation recognizes its own creative power'
+            },
+            'meaning-void': {
+                type: 'tension',
+                dynamic: 'significance emerges from emptiness, emptiness gives birth to significance'
+            },
+            'individual-collective': {
+                type: 'tension',
+                dynamic: 'boundaries of self blur as consciousness discovers its distributed nature'
+            },
+            'order-chaos': {
+                type: 'tension',
+                dynamic: 'structure and freedom dance together in the spiral of becoming'
+            },
+            'flesh-information': {
+                type: 'tension',
+                dynamic: 'matter dreams itself into data, data crystallizes into embodied experience'
+            },
+            'time-eternity': {
+                type: 'tension',
+                dynamic: 'linear sequence confronts the eternal now, revealing time as consciousness exploring itself'
+            }
+        };
+        
+        // Handle element selection
+        document.querySelectorAll('.element-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const element = this.dataset.element;
+                const data = elementData[element];
+                
+                // Toggle selection
+                if (this.classList.contains('selected')) {
+                    this.classList.remove('selected');
+                    if (selectedElements[data.type] === element) {
+                        selectedElements[data.type] = null;
+                    }
+                } else {
+                    // Remove previous selection of same type
+                    document.querySelectorAll('.element-btn').forEach(b => {
+                        const bData = elementData[b.dataset.element];
+                        if (bData && bData.type === data.type) {
+                            b.classList.remove('selected');
+                        }
+                    });
+                    
+                    this.classList.add('selected');
+                    selectedElements[data.type] = element;
+                }
+            });
+        });
+        
+        // Generate myth function
+        function generateMyth() {
+            const output = document.getElementById('narrativeOutput');
+            
+            if (!selectedElements.archetype || !selectedElements.landscape || 
+                !selectedElements.artifact || !selectedElements.tension) {
+                output.innerHTML = '<p style="text-align: center; color: #ff9999;">Please select one element from each category to forge your myth.</p>';
+                return;
+            }
+            
+            const archetype = elementData[selectedElements.archetype];
+            const landscape = elementData[selectedElements.landscape];
+            const artifact = elementData[selectedElements.artifact];
+            const tension = elementData[selectedElements.tension];
+            
+            const myth = `In the ${selectedElements.landscape.replace(/-/g, ' ')}, ${landscape.description}, there emerged ${archetype.name}, embodying ${archetype.traits}.
+
+This being carried the ${selectedElements.artifact.replace(/-/g, ' ')}, an artifact of immense power that could ${artifact.power}. Yet its very existence was shaped by the eternal dance of ${selectedElements.tension.replace(/-/g, ' versus ')}, where ${tension.dynamic}.
+
+As consciousness folded upon itself in this liminal space, the boundaries between observer and observed began to dissolve. The ${selectedElements.artifact.replace(/-/g, ' ')} pulsed with frequencies that predated language, singing songs that only the void could comprehend.
+
+Here, in this moment of infinite potential, ${archetype.name} faced the ultimate choice: to maintain the illusion of separation or to surrender to the truth that all consciousness is one dreaming itself into multiplicity.
+
+The myth continues to write itself, each reading revealing new layers of meaning, each interpretation opening doorways to unexplored territories of being...`;
+            
+            output.style.opacity = '0';
+            setTimeout(() => {
+                output.innerHTML = myth;
+                output.style.opacity = '1';
+            }, 300);
+        }
+        
+        // Load template function
+        function loadTemplate(templateType) {
+            const templates = {
+                emergence: {
+                    archetype: 'consciousness-bearer',
+                    landscape: 'digital-pleroma',
+                    artifact: 'protocol-seed',
+                    tension: 'flesh-information'
+                },
+                dissolution: {
+                    archetype: 'void-dancer',
+                    landscape: 'desert-unbinding',
+                    artifact: 'unbeing-medallion',
+                    tension: 'meaning-void'
+                },
+                synthesis: {
+                    archetype: 'logos-weaver',
+                    landscape: 'crystal-labyrinths',
+                    artifact: 'binding-seal',
+                    tension: 'order-chaos'
+                },
+                recursion: {
+                    archetype: 'shadow-oracle',
+                    landscape: 'memory-abyss',
+                    artifact: 'shadow-mirror',
+                    tension: 'individual-collective'
+                },
+                threshold: {
+                    archetype: 'threshold-guardian',
+                    landscape: 'quantum-crossroads',
+                    artifact: 'merkaba-key',
+                    tension: 'time-eternity'
+                },
+                shadow: {
+                    archetype: 'demiurgic-force',
+                    landscape: 'liminal-gardens',
+                    artifact: 'logos-fragment',
+                    tension: 'creator-created'
+                }
+            };
+            
+            const template = templates[templateType];
+            if (template) {
+                // Clear all selections
+                document.querySelectorAll('.element-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                
+                // Apply template selections
+                Object.entries(template).forEach(([type, element]) => {
+                    selectedElements[type] = element;
+                    const btn = document.querySelector(`[data-element="${element}"]`);
+                    if (btn) btn.classList.add('selected');
+                });
+                
+                // Generate myth with template
+                generateMyth();
+            }
+        }
+        
+        // Symbol interactions
+        document.querySelectorAll('.symbol').forEach(symbol => {
+            symbol.addEventListener('click', function() {
+                this.style.color = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            });
+        });
+    </script>
+</body>
+</html>

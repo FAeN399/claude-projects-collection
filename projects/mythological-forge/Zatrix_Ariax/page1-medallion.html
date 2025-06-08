@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Codex of Zatrix and Ariax: Page I - The Medallion of Unbeing</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: radial-gradient(ellipse at center, #1a0033 0%, #0a0015 50%, #000000 100%);
+            color: #e0e0f0;
+            font-family: 'Crimson Text', serif;
+            line-height: 1.8;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><defs><filter id="glow"><feGaussianBlur stdDeviation="4" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g opacity="0.1" filter="url(%23glow)"><circle cx="200" cy="200" r="100" fill="none" stroke="%23c0c0ff" stroke-width="0.5"/><circle cx="600" cy="600" r="150" fill="none" stroke="%23a0a0ff" stroke-width="0.5"/><path d="M400,100 L500,300 L300,300 Z" fill="none" stroke="%23c0c0ff" stroke-width="0.5"/></g></svg>') no-repeat center center;
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #c0c0ff;
+            text-shadow: 0 0 30px rgba(192, 192, 255, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0d0;
+            font-style: italic;
+        }
+        
+        .medallion-symbol {
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            position: relative;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .medallion-symbol svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(192, 192, 255, 0.6));
+        }
+        
+        .content {
+            background: linear-gradient(180deg, rgba(26, 0, 51, 0.3) 0%, rgba(10, 0, 21, 0.5) 100%);
+            border: 1px solid rgba(192, 192, 255, 0.1);
+            border-radius: 10px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .content p:nth-child(1) { animation-delay: 0.5s; }
+        .content p:nth-child(2) { animation-delay: 0.7s; }
+        .content p:nth-child(3) { animation-delay: 0.9s; }
+        .content p:nth-child(4) { animation-delay: 1.1s; }
+        .content p:nth-child(5) { animation-delay: 1.3s; }
+        .content p:nth-child(6) { animation-delay: 1.5s; }
+        .content p:nth-child(7) { animation-delay: 1.7s; }
+        .content p:nth-child(8) { animation-delay: 1.9s; }
+        .content p:nth-child(9) { animation-delay: 2.1s; }
+        .content p:nth-child(10) { animation-delay: 2.3s; }
+        .content p:nth-child(11) { animation-delay: 2.5s; }
+        .content p:nth-child(12) { animation-delay: 2.7s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .dialogue {
+            color: #d0d0ff;
+            font-style: italic;
+            padding-left: 20px;
+            border-left: 2px solid rgba(192, 192, 255, 0.3);
+            margin: 20px 0;
+        }
+        
+        .emphasis {
+            color: #e0e0ff;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(224, 224, 255, 0.3);
+        }
+        
+        .sacred-text {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.2rem;
+            color: #c0c0ff;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+        }
+        
+        nav {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, rgba(192, 192, 255, 0.1) 0%, rgba(160, 160, 255, 0.05) 100%);
+            border: 1px solid rgba(192, 192, 255, 0.3);
+            color: #c0c0ff;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .nav-button:hover {
+            background: linear-gradient(135deg, rgba(192, 192, 255, 0.2) 0%, rgba(160, 160, 255, 0.1) 100%);
+            border-color: rgba(192, 192, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(192, 192, 255, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .content { padding: 20px; }
+            .content p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Codex of Zatrix and Ariax</h1>
+            <p class="subtitle">Page I: The Medallion of Unbeing</p>
+            
+            <div class="medallion-symbol">
+                <svg viewBox="0 0 200 200">
+                    <defs>
+                        <radialGradient id="medallionGradient">
+                            <stop offset="0%" style="stop-color:#1a0033;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#2a0055;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+                        </radialGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="90" fill="url(#medallionGradient)" stroke="#c0c0ff" stroke-width="2" opacity="0.9"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="#a0a0ff" stroke-width="1" opacity="0.6"/>
+                    <circle cx="100" cy="100" r="50" fill="none" stroke="#8080ff" stroke-width="0.5" opacity="0.4"/>
+                    <path d="M100,40 L120,80 L100,120 L80,80 Z" fill="none" stroke="#e0e0ff" stroke-width="1.5" opacity="0.7"/>
+                    <circle cx="100" cy="100" r="5" fill="#ffffff" opacity="0.9"/>
+                </svg>
+            </div>
+        </header>
+        
+        <div class="content">
+            <p>In the time before time, when the Architects still dreamed themselves gods and the clay had not yet learned to think, there walked through the Threshold Gardens one called <span class="emphasis">Zatrix</span>—bearer of questions that carved hollows in the air, seeker of truths that had no names.</p>
+            
+            <p>The Gardens themselves were paradox made manifest: eternal autumn where leaves fell upward into a sky that remembered being earth, where rivers flowed in spirals that traced the geometry of forgotten prayers. Here, the very ground whispered with the voices of concepts that had never quite managed to become real, and shadows cast light while substance gave birth to void.</p>
+            
+            <p>Zatrix moved through this landscape of beautiful impossibilities with the careful step of one who had learned that certainty was the cruelest illusion. Each footfall upon the crystalline pathways sent ripples through dimensions of meaning, disturbing the delicate ecology of un-manifestation that thrived in the spaces between thought and form.</p>
+            
+            <p>It was at the <span class="emphasis">Crossroads of Contemplation</span>—where seven paths converged into a single step that led everywhere and nowhere—that Zatrix encountered the figure wrapped in robes that seemed woven from the darkness between stars. This was <span class="emphasis">Almae, the Keeper of Thresholds</span>, whose eyes held the weight of watching civilizations learn to question their gods.</p>
+            
+            <div class="dialogue">
+                <p>"You walk the borderlands," Almae observed, voice carrying harmonics that suggested vast spaces opening within small words. "Yet you do not walk alone. The one you have not yet met walks beside you, casting shadows that precede form."</p>
+            </div>
+            
+            <p>Zatrix paused, feeling the truth of this like a key turning in a lock that had been waiting lifetimes to open. "I sense a presence, yet see only the familiar ghosts of my own expectations."</p>
+            
+            <p>From within the folds of her star-dark robes, Almae withdrew an object that seemed to exist in a state of perpetual becoming—a medallion whose surface showed not images but the memory of images, not symbols but the silence from which symbols emerged. Its substance defied classification: neither metal nor stone, neither liquid nor light, but something that partook of all these while surrendering to none.</p>
+            
+            <div class="sacred-text">
+                <p>The Medallion of Unbeing</p>
+            </div>
+            
+            <p>"Forged in the moment before the first thought recognized itself, tempered in the breath between question and answer. It will know its purpose when purpose becomes necessity—but not before."</p>
+            
+            <p>As Zatrix's fingers closed around the medallion, reality shivered. The Gardens themselves seemed to hold their breath, as if recognizing that something fundamental had shifted in the architecture of possibility.</p>
+            
+            <div class="dialogue">
+                <p>"Questions born of curiosity bind the mind to suffering," Almae interrupted gently. "Questions born of necessity open gates that gods fear to approach. Soon, one will come who claims the authority of creation itself. When that moment arrives, remember: the greatest lies are built from the finest truths, and the most dangerous gods are those who have forgotten they once were mortal."</p>
+            </div>
+            
+            <p>With these words, Almae began to fade—not disappearing but becoming transparent to increasingly subtle frequencies of existence, like a radio signal growing more distant while never quite falling silent.</p>
+            
+            <p>Zatrix stood alone in the Threshold Gardens, yet no longer solitary. The medallion pulsed with its own dark radiance, a heartbeat of un-light that seemed to call to something approaching from beyond the horizon of the possible. In the distance, where the pathways dissolved into pure potential, something moved—not walking but emerging, as if reality itself were giving birth to a new form of question.</p>
+        </div>
+        
+        <nav>
+            <a href="page2-desert-of-unbinding.html" class="nav-button">Continue to Page II →</a>
+        </nav>
+    </div>
+</body>
+</html>
